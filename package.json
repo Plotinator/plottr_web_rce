@@ -8,8 +8,21 @@
     "start": "next start"
   },
   "dependencies": {
+    "classnames": "^2.2.6",
+    "format-message": "^6.2.3",
+    "is-hotkey": "^0.1.6",
+    "is-url": "^1.2.4",
+    "lodash": "^4.17.20",
     "next": "9.5.3",
     "react": "16.13.1",
-    "react-dom": "16.13.1"
+    "react-bootstrap": "^0.32.4",
+    "react-dom": "^16.13.1",
+    "react-icons": "^3.11.0",
+    "react-proptypes": "^1.0.0",
+    "sass": "^1.26.11",
+    "slate": "^0.57.1",
+    "slate-history": "^0.57.1",
+    "slate-hyperscript": "^0.57.1",
+    "slate-react": "^0.57.1"
   }
 }
