@@ -11,13 +11,13 @@ export default function App (props) {
 
   useEffect(() => {
     if (window) {
-      setText(window.injectedText || '')
+      setText(window.injectedText)
     }
   }, [checkForText])
 
   const onChange = (val) => {
     if (window?.ReactNativeWebView?.postMessage) {
-      window.ReactNativeWebView.postMessage(val)
+      window.ReactNativeWebView.postMessage(JSON.stringify(val))
     }
     setText(val)
   }
