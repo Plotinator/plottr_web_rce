@@ -5,21 +5,21 @@ import { Slate, Editable, withReact } from 'slate-react'
 import Leaf from './Leaf'
 import Element from './Element'
 import { withLinks } from './LinkButton'
-import { withImages } from './ImagesButton'
 import { useTextConverter } from './helpers'
 import cx from 'classnames'
 
 const RichTextViewer = (props) => {
   const editor = useMemo(() => {
-    return withImages(withLinks(withReact(createEditor())))
+    return withLinks(withReact(createEditor()))
   }, [])
   const renderLeaf = useCallback(props => <Leaf {...props} />, [])
   const renderElement = useCallback(props => <Element {...props} />, [])
-  const value = useTextConverter(props.text)
-  const [key, setKey] = useState(null)
+  const [value, setValue] = useState(useTextConverter(props.text))
+  const [key, setKey] = useState(Math.random().toString(16))
+
   useEffect(() => {
-    setKey(Math.random().toString(16))
-  }, [])
+    setValue(useTextConverter(props.text))
+  }, [props.text])
 
   if (!value) return <span/>
   if (!value.length) return <span/>
