@@ -11,7 +11,7 @@ export default function App (props) {
 
   useEffect(() => {
     if (window) {
-      setText(window.injectedText)
+      setText(window.injectedText || '')
     }
   }, [checkForText])
 
