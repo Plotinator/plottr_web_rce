@@ -76,7 +76,6 @@ const RichTextEditor = (props) => {
               <MarkButton mark='strike' icon={<FaStrikethrough/>} />
               <BlockButton format='heading-one' icon={i18n('Title')} />
               <BlockButton format='heading-two' icon={i18n('Subtitle')} />
-              <BlockButton format='block-quote' icon={<FaQuoteLeft/>} />
               <BlockButton format='numbered-list' icon={<FaListOl/>} />
               <BlockButton format='bulleted-list' icon={<FaListUl/>} />
             </ButtonGroup>

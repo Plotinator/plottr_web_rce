@@ -10,9 +10,6 @@ export default function Home() {
 
       <App
         className=''
-        onChange={value => console.log(value)}
-        autoFocus={true}
-        text={''}
         darkMode={false}
       />
     </div>
