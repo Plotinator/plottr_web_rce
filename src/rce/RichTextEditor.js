@@ -32,25 +32,16 @@ const RichTextEditor = (props) => {
   const renderLeaf = useCallback(props => <Leaf {...props} />, [])
   const renderElement = useCallback(props => <Element {...props} />, [])
   const [value, setValue] = useState(null)
-  const [key, setKey] = useState(null)
+  const [key, setKey] = useState(Math.random().toString(16))
   const toolbarRef = useRef(null)
-  const [showColorPicker, toggleColorPicker] = useState(false)
-  const changeColor = color => {
-    addColorMark(editor, color)
-    toggleColorPicker(false)
-  }
   useEffect(() => {
-    if (!value) {
+    if (!value && props.text) {
       const rceText = useTextConverter(props.text)
       setValue(rceText)
     }
   }, [props.text])
-  useEffect(() => {
-    setKey(Math.random().toString(16))
-  }, [])
 
   if (!value) return null
-  if (!key) return null
 
   const updateValue = newVal => {
     // only update if it changed

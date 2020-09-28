@@ -2,14 +2,18 @@ import React, { useState, useEffect } from 'react'
 import RichTextEditor from './rce/RichTextEditor'
 
 export default function App (props) {
+  const [checkForText, setCheckForText] = useState(false)
+  const [text, setText] = useState(null)
 
-  const [text, setText] = useState('')
+  useEffect(() => {
+    setTimeout(() => setCheckForText(true), 500)
+  }, [])
 
   useEffect(() => {
     if (window) {
       setText(window.injectedText)
     }
-  }, [])
+  }, [checkForText])
 
   const onChange = (val) => {
     if (window?.ReactNativeWebView?.postMessage) {
