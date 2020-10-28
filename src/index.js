@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import RichTextEditor from './rce/RichTextEditor'
 import RichTextViewer from './rce/RichTextViewer'
 
+const initialText = [{ type: 'paragraph', children: [{ text: '' }] }]
+
 export default function App (props) {
   const [checkForWindow, setCheckWindow] = useState(false)
   const [text, setText] = useState(null)
@@ -13,7 +15,9 @@ export default function App (props) {
 
   useEffect(() => {
     if (window) {
-      setText(window.injectedText)
+      if (window.injectedText && !text) {
+        setText(window.injectedText)
+      }
       setReadOnly(window.readOnly || false)
     }
   }, [checkForWindow])
@@ -22,7 +26,6 @@ export default function App (props) {
     if (window?.ReactNativeWebView?.postMessage) {
       window.ReactNativeWebView.postMessage(JSON.stringify(val))
     }
-    setText(val)
   }
 
   const renderRichText = () => {
@@ -33,7 +36,7 @@ export default function App (props) {
         className={props.className}
         onChange={onChange}
         autoFocus={true}
-        text={text}
+        initialText={text}
         darkMode={props.darkMode}
       />
     }

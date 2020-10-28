@@ -34,8 +34,10 @@ const RichTextEditor = (props) => {
   const [value, setValue] = useState(null)
   const toolbarRef = useRef(null)
   useEffect(() => {
-    setValue(useTextConverter(props.text))
-  }, [props.text])
+    if (props.initialText) {
+      setValue(useTextConverter(props.initialText))
+    }
+  }, [props.initialText])
 
   if (!value) return null
 
