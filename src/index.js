@@ -10,7 +10,7 @@ export default function App (props) {
   const [readOnly, setReadOnly] = useState(false)
 
   useEffect(() => {
-    setTimeout(() => setCheckWindow(true), 5000)
+    if (!window) setTimeout(() => setCheckWindow(true), 5000)
   }, [])
 
   useEffect(() => {
