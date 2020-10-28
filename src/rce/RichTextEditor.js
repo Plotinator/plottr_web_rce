@@ -35,7 +35,7 @@ const RichTextEditor = (props) => {
   const toolbarRef = useRef(null)
   useEffect(() => {
     setValue(useTextConverter(props.text))
-  }, [])
+  }, [props.text])
 
   if (!value) return null
 
