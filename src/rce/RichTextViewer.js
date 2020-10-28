@@ -4,13 +4,12 @@ import { createEditor } from 'slate'
 import { Slate, Editable, withReact } from 'slate-react'
 import Leaf from './Leaf'
 import Element from './Element'
-import { withLinks } from './LinkButton'
 import { useTextConverter } from './helpers'
 import cx from 'classnames'
 
 const RichTextViewer = (props) => {
   const editor = useMemo(() => {
-    return withLinks(withReact(createEditor()))
+    return withReact(createEditor())
   }, [])
   const renderLeaf = useCallback(props => <Leaf {...props} />, [])
   const renderElement = useCallback(props => <Element {...props} />, [])

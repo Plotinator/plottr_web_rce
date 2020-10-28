@@ -32,19 +32,18 @@ const RichTextEditor = (props) => {
   const renderLeaf = useCallback(props => <Leaf {...props} />, [])
   const renderElement = useCallback(props => <Element {...props} />, [])
   const [value, setValue] = useState(null)
-  const [key, setKey] = useState(Math.random().toString(16))
   const toolbarRef = useRef(null)
   useEffect(() => {
     setValue(useTextConverter(props.text))
-  }, [props.text])
+  }, [])
 
   if (!value) return null
 
   const updateValue = newVal => {
+    setValue(newVal)
     // only update if it changed
     // (e.g. this event could fire with a selection change, but the text is the same)
     if (value !== newVal) {
-      setValue(newVal)
       props.onChange(newVal)
     }
   }
@@ -53,7 +52,7 @@ const RichTextEditor = (props) => {
     autoFocus: props.autoFocus
   }
   return (
-    <Slate editor={editor} value={value} onChange={updateValue} key={key}>
+    <Slate editor={editor} value={value} onChange={updateValue}>
       <div className={cx('slate-editor__wrapper', props.className)}>
         <div className={cx('slate-editor__toolbar-wrapper', {darkmode: props.darkMode})} ref={toolbarRef}>
           <ToolBar>
