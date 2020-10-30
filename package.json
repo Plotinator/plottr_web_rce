@@ -20,9 +20,10 @@
     "react-icons": "^3.11.0",
     "react-proptypes": "^1.0.0",
     "sass": "^1.26.11",
-    "slate": "^0.57.1",
-    "slate-history": "^0.57.1",
-    "slate-hyperscript": "^0.57.1",
-    "slate-react": "^0.57.1"
+    "slate": "^0.59.0",
+    "slate-android-plugin": "^0.0.2",
+    "slate-history": "^0.59.0",
+    "slate-hyperscript": "^0.59.0",
+    "slate-react": "^0.59.0"
   }
 }

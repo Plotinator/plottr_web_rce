@@ -1,12 +1,12 @@
 import React, { useCallback, useMemo, useState, useEffect, useRef } from 'react'
 import PropTypes from 'react-proptypes'
-import { findDOMNode } from 'react-dom'
 import i18n from 'format-message'
 import isHotkey from 'is-hotkey'
 import { ButtonGroup, Overlay } from 'react-bootstrap'
 import { createEditor } from 'slate'
 import { Slate, Editable, withReact } from 'slate-react'
 import { withHistory } from 'slate-history'
+import { useAndroidPlugin } from 'slate-android-plugin'
 import { FaBold, FaItalic, FaUnderline, FaQuoteLeft, FaListOl, FaListUl, FaStrikethrough } from 'react-icons/fa'
 import ToolBar from './ToolBar'
 import { MarkButton, toggleMark } from './MarkButton'
@@ -26,18 +26,20 @@ const HOTKEYS = {
 }
 
 const RichTextEditor = (props) => {
-  const editor = useMemo(() => {
-    return withNormalizer(withHTML(withLinks(withHistory(withReact(createEditor())))))
-  }, [])
+  let editor
+  if (props.isAndroid) {
+    editor = useAndroidPlugin(useMemo(() => {
+      return withNormalizer(withHTML(withLinks(withHistory(withReact(createEditor())))))
+    }, []))
+  } else {
+    editor = useMemo(() => {
+      return withNormalizer(withHTML(withLinks(withHistory(withReact(createEditor())))))
+    }, [])
+  }
   const renderLeaf = useCallback(props => <Leaf {...props} />, [])
   const renderElement = useCallback(props => <Element {...props} />, [])
-  const [value, setValue] = useState(null)
+  const [value, setValue] = useState(useTextConverter(props.initialText))
   const toolbarRef = useRef(null)
-  useEffect(() => {
-    if (props.initialText) {
-      setValue(useTextConverter(props.initialText))
-    }
-  }, [props.initialText])
 
   if (!value) return null
 

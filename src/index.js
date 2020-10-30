@@ -8,6 +8,8 @@ export default function App (props) {
   const [checkForWindow, setCheckWindow] = useState(false)
   const [text, setText] = useState(null)
   const [readOnly, setReadOnly] = useState(false)
+  const [android, setAndroid] = useState(false)
+  const [platformIsSet, setPlatform] = useState(false)
 
   useEffect(() => {
     if (!window) setTimeout(() => setCheckWindow(true), 5000)
@@ -15,11 +17,15 @@ export default function App (props) {
 
   useEffect(() => {
     if (window) {
+      setAndroid(!!window.isAndroid)
+      setReadOnly(window.readOnly || false)
       if (window.injectedText && !text) {
         setText(window.injectedText)
+      } else if (!window.injectedText && !text) {
+        setText(initialText)
       }
-      setReadOnly(window.readOnly || false)
     }
+    setPlatform(true)
   }, [checkForWindow])
 
   const onChange = (val) => {
@@ -29,6 +35,9 @@ export default function App (props) {
   }
 
   const renderRichText = () => {
+    if (!platformIsSet) return null
+    if (!text) return null
+
     if (readOnly) {
       return <RichTextViewer text={text} className={props.className} />
     } else {
@@ -38,6 +47,7 @@ export default function App (props) {
         autoFocus={true}
         initialText={text}
         darkMode={props.darkMode}
+        isAndroid={android}
       />
     }
   }
