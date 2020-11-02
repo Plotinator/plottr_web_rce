@@ -3,3 +3,17 @@
 @import "colors";
 
 @import "slate.scss";
+
+.error-boundary {
+  text-align: center;
+  p {
+    font-size: large;
+  }
+  .btn {
+    margin-bottom: 10px;
+  }
+
+  .btn.btn-warning svg {
+    vertical-align: text-top;
+  }
+}

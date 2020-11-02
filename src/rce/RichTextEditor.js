@@ -1,8 +1,7 @@
 import React, { useCallback, useMemo, useState, useEffect, useRef } from 'react'
 import PropTypes from 'react-proptypes'
 import i18n from 'format-message'
-import isHotkey from 'is-hotkey'
-import { ButtonGroup, Overlay } from 'react-bootstrap'
+import { ButtonGroup } from 'react-bootstrap'
 import { createEditor } from 'slate'
 import { Slate, Editable, withReact } from 'slate-react'
 import { withHistory } from 'slate-history'
@@ -19,12 +18,6 @@ import Element from './Element'
 import cx from 'classnames'
 import { useTextConverter } from './helpers'
 
-const HOTKEYS = {
-  'mod+b': 'bold',
-  'mod+i': 'italic',
-  'mod+u': 'underline',
-}
-
 const RichTextEditor = (props) => {
   let editor
   if (props.isAndroid) {
@@ -39,7 +32,6 @@ const RichTextEditor = (props) => {
   const renderLeaf = useCallback(props => <Leaf {...props} />, [])
   const renderElement = useCallback(props => <Element {...props} />, [])
   const [value, setValue] = useState(useTextConverter(props.initialText))
-  const toolbarRef = useRef(null)
 
   if (!value) return null
 
@@ -58,7 +50,7 @@ const RichTextEditor = (props) => {
   return (
     <Slate editor={editor} value={value} onChange={updateValue}>
       <div className={cx('slate-editor__wrapper', props.className)}>
-        <div className={cx('slate-editor__toolbar-wrapper', {darkmode: props.darkMode})} ref={toolbarRef}>
+        <div className={cx('slate-editor__toolbar-wrapper', {darkmode: props.darkMode})}>
           <ToolBar>
             <ButtonGroup>
               <MarkButton mark='bold' icon={<FaBold/>} />
@@ -74,20 +66,9 @@ const RichTextEditor = (props) => {
         </div>
         <div className={cx('slate-editor__editor', {darkmode: props.darkMode})}>
           <Editable
-            spellCheck
-            {...otherProps}
             renderLeaf={renderLeaf}
             renderElement={renderElement}
             placeholder={i18n('Enter some text...')}
-            onKeyDown={event => {
-              for (const hotkey in HOTKEYS) {
-                if (isHotkey(hotkey, event)) {
-                  event.preventDefault()
-                  const mark = HOTKEYS[hotkey]
-                  toggleMark(editor, mark)
-                }
-              }
-            }}
           />
         </div>
       </div>
