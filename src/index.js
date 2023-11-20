@@ -32,7 +32,11 @@ export default function App (props) {
   const onChange = (val) => {
     setText(val)
     if (window?.ReactNativeWebView?.postMessage) {
-      window.ReactNativeWebView.postMessage(JSON.stringify(val))
+      const value = {
+        height: document.documentElement.scrollHeight,
+        text: val,
+      }
+      window.ReactNativeWebView.postMessage(JSON.stringify(value))
     }
   }
 
